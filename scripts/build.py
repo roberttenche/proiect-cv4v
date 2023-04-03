@@ -57,11 +57,6 @@ def create_build_folders():
     info('Creating build and bin folders')
     if not isdir(cwd + '/build'):
         mkdir(cwd + '/build')
-        mkdir(cwd + '/build/lib-src')
-        mkdir(cwd + '/build/lib-src/opencv')
-
-    if not isdir(cwd + '/bin'):
-        mkdir(cwd + '/bin')
 
 
 def move(old, new):
@@ -97,27 +92,15 @@ def clean():
 def build():
     info('Running build...')
 
-    info('Updating submodules...')
-    p = system_run('git submodule update --init --recursive')
-    if p.returncode != 0:
-        error('Updating submodules failed!')
+    # info('Updating submodules...')
+    # p = system_run('git submodule update --init --recursive')
+    # if p.returncode != 0:
+    #     error('Updating submodules failed!')
 
     info('Generating Makefiles...')
-    p = system_run('cmake -S . -B build -G "Unix Makefiles" -D CMAKE_C_COMPILER=clang -D CMAKE_CXX_COMPILER=clang++')
+    p = system_run('cmake -S . -B build -G "Visual Studio 16 2019"')
     if p.returncode != 0:
         error('Building failed! Unable to generate Makefile')
-
-    info('Running make...') # build libraries
-    chdir(path.join(cwd, 'build', 'lib-src'))
-    p = system_run('make')
-    if p.returncode != 0:
-        error('Running make failed! CWD: ' + path.join(cwd, 'build', 'lib-src'))
-    chdir(path.join(cwd, 'build')) # build app
-    p = system_run('make')
-    if p.returncode != 0:
-        error('Running make failed! CWD: ' + path.join(cwd, 'build'))
-
-    move(path.join(cwd, 'build', 'REAL-GAME-ENGINE.exe'), path.join(cwd, 'bin', 'appl.exe'))
 
     success('Project sucessfully built')
 

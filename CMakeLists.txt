@@ -5,45 +5,40 @@ project(CV4V-PROJECT LANGUAGES CXX)
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_CXX_STANDARD 20)
 
-file(GLOB SOURCES
-  appl/main.cpp
+find_package( OpenCV REQUIRED )
+
+add_subdirectory(
+  appl
 )
-
-add_executable(${PROJECT_NAME} ${SOURCES})
-
-# OpenCV settings
-# https://docs.opencv.org/4.x/db/d05/tutorial_config_reference.html
-set(BUILD_PERF_TESTS OFF)
-set(BUILD_TESTS OFF)
-set(BUILD_DOCS OFF)
-set(WITH_CUDA OFF)
-set(BUILD_EXAMPLES OFF)
-set(BUILD_SHARED_LIBS OFF)
-set(OPENCV_GENERATE_PKGCONFIG OFF)
-set(ENABLE_PIC OFF)
-set(BUILD_opencv_apps OFF)
-set(INSTALL_CREATE_DISTRIB ON)
-
-
-# Start building
-add_subdirectory(lib-src)
 
 target_include_directories(${PROJECT_NAME} PRIVATE
-  lib-src/opencv/include
+  ${OpenCV_INCLUDE_DIRS}
 )
 
-target_link_directories(${PROJECT_NAME} PRIVATE
-  build/lib-src/glfw/src
-  build/lib-src/glew
-)
+# target_link_directories(${PROJECT_NAME} PRIVATE
+#   lib-src/opencv/opencv-4.7.0-prebuilt
+# )
 
 # User built / pre-compiled libraries
 target_link_libraries(${PROJECT_NAME}
-  glfw3
-  glew32
+  ${OpenCV_LIBS}
+  # opencv_calib3d470d
+  # opencv_core470d
+  # opencv_dnn470d
+  # opencv_features2d470d
+  # opencv_flann470d
+  # opencv_gapi470d
+  # opencv_highgui470d
+  # opencv_imgcodecs470d
+  # opencv_imgproc470d
+  # opencv_ml470d
+  # opencv_objdetect470d
+  # opencv_photo470d
+  # opencv_stitching470d
+  # opencv_video470d
+  # opencv_videoio470d
 )
 
 # System libraries
-target_link_libraries(${PROJECT_NAME}
-  opengl32
-)
+# target_link_libraries(${PROJECT_NAME}
+# )
