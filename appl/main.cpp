@@ -1,20 +1,20 @@
-#include <stdio.h>
-#include <opencv2/opencv.hpp>
-
-using namespace cv;
+#include <lane_detector.hpp>
 
 int main()
 {
-  
-  Mat image;
-  image = imread( "D:\\GIT\\proiect-cv4v\\img.jpg", IMREAD_COLOR);
-  if ( !image.data )
+  lane_detector::open_video("C:\\Users\\teenc\\Desktop\\5h.mp4");
+
+  lane_detector::options opt;
+
+  opt.display_fps = true;
+  opt.display_frames = true;
+
+  lane_detector::set_options(opt);
+
+  while(not lane_detector::finished())
   {
-    printf("No image data \n");
-    return -1;
+    lane_detector::get_frame(nullptr);
   }
-  namedWindow("Display Image", WINDOW_AUTOSIZE );
-  imshow("Display Image", image);
-  waitKey(0);
+
   return 0;
 }

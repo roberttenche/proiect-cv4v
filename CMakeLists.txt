@@ -13,32 +13,10 @@ add_subdirectory(
 
 target_include_directories(${PROJECT_NAME} PRIVATE
   ${OpenCV_INCLUDE_DIRS}
+  appl/lane_detector
 )
 
-# target_link_directories(${PROJECT_NAME} PRIVATE
-#   lib-src/opencv/opencv-4.7.0-prebuilt
-# )
-
-# User built / pre-compiled libraries
 target_link_libraries(${PROJECT_NAME}
   ${OpenCV_LIBS}
-  # opencv_calib3d470d
-  # opencv_core470d
-  # opencv_dnn470d
-  # opencv_features2d470d
-  # opencv_flann470d
-  # opencv_gapi470d
-  # opencv_highgui470d
-  # opencv_imgcodecs470d
-  # opencv_imgproc470d
-  # opencv_ml470d
-  # opencv_objdetect470d
-  # opencv_photo470d
-  # opencv_stitching470d
-  # opencv_video470d
-  # opencv_videoio470d
+  lane_detector
 )
-
-# System libraries
-# target_link_libraries(${PROJECT_NAME}
-# )
